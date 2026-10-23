@@ -1,0 +1,60 @@
+# ==============================================================================
+# CẤU HÌNH HỆ THỐNG PHÁT NHẠC TỰ ĐỘNG PIKAMC - KhangMusic
+# Tác giả: phantrongkhangg | Server Paper 1.21.4
+# ==============================================================================
+
+# Tự động phát nhạc khi máy chủ khởi động
+auto-start: true
+
+# Tiền tố hiển thị trong khung chat
+prefix: "&d[&e♫ KhangMusic&d] &7"
+
+# Kiểu thông báo khi bài hát mới bắt đầu phát (CHAT, ACTIONBAR, hoặc BOTH)
+notify-type: "BOTH"
+
+# Thông báo khi chuyển bài hát
+notify-message: "&fĐang phát: &e{song_name} &7[{duration}]"
+
+# Danh sách 7 bài hát trong hệ thống (Tự động xoay vòng liên tục)
+playlist:
+  - id: "01_dieu_toa"
+    name: "Mashup Điêu Toa x 2 Phút Hơn (Speed Up)"
+    duration: 130
+    java-sound: "pikaradio:pikaradio.01_dieu_toa_x_2_phut_hon_speedup"
+    bedrock-sound: "radio.01_dieu_toa_x_2_phut_hon_speedup"
+
+  - id: "02_nhat_than"
+    name: "Liên khúc 5in1: Nhất Thân, Vô Duyên, Túy Âm, Yêu Làm Chi, Về"
+    duration: 1052
+    java-sound: "pikaradio:pikaradio.02_nhat_than_vo_duyen_tuy_am_mix"
+    bedrock-sound: "radio.02_nhat_than_vo_duyen_tuy_am_mix"
+
+  - id: "03_tinh_ve"
+    name: "Tinh Vệ (精卫 - Bản Hí Khang)"
+    duration: 185
+    java-sound: "pikaradio:pikaradio.03_tinh_ve_ban_hi_khang"
+    bedrock-sound: "radio.03_tinh_ve_ban_hi_khang"
+
+  - id: "04_cho_chut"
+    name: "Mashup 4in1: Chờ Chút x Nơi Này Có Anh x Track 06 x In Love"
+    duration: 325
+    java-sound: "pikaradio:pikaradio.04_cho_chut_x_noi_nay_co_anh_mix"
+    bedrock-sound: "radio.04_cho_chut_x_noi_nay_co_anh_mix"
+
+  - id: "05_cuoi_di"
+    name: "Mashup 3in1: Cưới Đi x Váy Cưới x GEDL"
+    duration: 553
+    java-sound: "pikaradio:pikaradio.05_cuoi_di_x_vay_cuoi_x_gedl_mix"
+    bedrock-sound: "radio.05_cuoi_di_x_vay_cuoi_x_gedl_mix"
+
+  - id: "06_fly_away"
+    name: "Fly Away (TheFatRat ft. Anjulie Speed Up)"
+    duration: 175
+    java-sound: "pikaradio:pikaradio.06_fly_away_thefatrat_speedup"
+    bedrock-sound: "radio.06_fly_away_thefatrat_speedup"
+
+  - id: "07_see_tinh"
+    name: "See Tình (Hoàng Thùy Linh Speed Up)"
+    duration: 132
+    java-sound: "pikaradio:pikaradio.07_see_tinh_hoang_thuy_linh_speedup"
+    bedrock-sound: "radio.07_see_tinh_hoang_thuy_linh_speedup"

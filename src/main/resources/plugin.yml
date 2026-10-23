@@ -1,0 +1,24 @@
+name: KhangMusic
+version: 1.0.0
+main: vn.pika.khangmusic.KhangMusic
+api-version: "1.20"
+author: phantrongkhangg
+description: 'He thong phat nhac nen Stereo tu dong toan server PikaMC'
+commands:
+  nhac:
+    description: 'Bat / tat va kiem tra thong tin nhac nen cho ban than'
+    usage: '/nhac [on|off|check|list]'
+    aliases: [music, baihat]
+    permission: khangmusic.use
+  nhacad:
+    description: 'Quan tri he thong nhac nen toan may chu'
+    usage: '/nhacad [on|off|next|check|list|reload]'
+    aliases: [musicadmin, nhacadmin]
+    permission: khangmusic.admin
+permissions:
+  khangmusic.use:
+    description: 'Cho phep su dung lenh /nhac'
+    default: true
+  khangmusic.admin:
+    description: 'Cho phep quan tri nhac /nhacad'
+    default: op
