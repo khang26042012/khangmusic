@@ -6,6 +6,12 @@
 # Tự động phát nhạc khi máy chủ khởi động
 auto-start: true
 
+# Máy chủ web tích hợp để phân phối Resource Pack cho người chơi Java (Port phụ PikaMC)
+http-server:
+  enabled: true
+  port: 25043
+  pack-file: "PikaRadio-Java.zip"
+
 # Tiền tố hiển thị trong khung chat
 prefix: "&d[&e♫ KhangMusic&d] &7"
 
