@@ -181,7 +181,7 @@ public class MusicManager {
             sendActionBarMethod.invoke(player, comp);
         } catch (Throwable ignored) {
             try {
-                String clean = message.replace(""", "'");
+                String clean = message.replace((char) 34, (char) 39);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + player.getName() + " actionbar {\"text\":\"" + clean + "\"}");
             } catch (Throwable ignored2) {}
         }
