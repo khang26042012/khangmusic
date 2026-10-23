@@ -194,37 +194,37 @@ public class MusicManager {
         boolean isBedrock = isBedrockPlayer(p);
         String soundKey = isBedrock ? song.getBedrockSound() : song.getJavaSound();
 
-        // Phat tren ca 2 kenh MUSIC va RECORDS (cung ca 2 sound key Bedrock + Java) de Bedrock & Java nghe 100%
         try {
-            p.playSound(p.getLocation(), soundKey, SoundCategory.MUSIC, 1000000.0f, 1.0f);
-            p.playSound(p.getLocation(), soundKey, SoundCategory.RECORDS, 1000000.0f, 1.0f);
+            // Dung command de client Minecraft nhan packet CustomSound chuan protocol 100%
+            String cmdRecord = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
+            String cmdMusic = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdRecord);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdMusic);
             if (isBedrock) {
-                p.playSound(p.getLocation(), song.getJavaSound(), SoundCategory.MUSIC, 1000000.0f, 1.0f);
-                p.playSound(p.getLocation(), song.getJavaSound(), SoundCategory.RECORDS, 1000000.0f, 1.0f);
+                String cmdBedRecord = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), song.getJavaSound(), p.getName());
+                String cmdBedMusic = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), song.getJavaSound(), p.getName());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdBedRecord);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdBedMusic);
             }
-        } catch (Throwable t) {
-            try {
-                String cmd1 = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
-                String cmd2 = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd1);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd2);
-            } catch (Throwable ignored) {}
-        }
+        } catch (Throwable ignored) {}
     }
 
     public void stopPlayerSound(Player p) {
         if (p != null && p.isOnline()) {
             try {
-                p.stopSound(SoundCategory.RECORDS);
-                p.stopSound(SoundCategory.MUSIC);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName() + " record");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName() + " music");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName());
             } catch (Throwable ignored) {}
         }
     }
 
     public void stopAllSounds() {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            stopPlayerSound(p);
-        }
+        try {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a record");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a music");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a");
+        } catch (Throwable ignored) {}
     }
 
     public boolean isMusicEnabled(UUID uuid) {
