@@ -195,16 +195,14 @@ public class MusicManager {
         String soundKey = isBedrock ? song.getBedrockSound() : song.getJavaSound();
 
         try {
-            // Dung command de client Minecraft nhan packet CustomSound chuan protocol 100%
-            String cmdRecord = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
-            String cmdMusic = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdRecord);
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdMusic);
+            // Java Edition phat qua kenh RECORD (chuan tuyet doi tu ban 18:09 da nghe ro 100%)
+            // Bedrock Edition phat qua kenh MUSIC (chuan Bedrock sound_definitions.json)
             if (isBedrock) {
-                String cmdBedRecord = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), song.getJavaSound(), p.getName());
-                String cmdBedMusic = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), song.getJavaSound(), p.getName());
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdBedRecord);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmdBedMusic);
+                String cmd = String.format("execute at %s run playsound %s music %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            } else {
+                String cmd = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
             }
         } catch (Throwable ignored) {}
     }
