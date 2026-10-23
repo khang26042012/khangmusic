@@ -194,10 +194,16 @@ public class MusicManager {
         boolean isBedrock = isBedrockPlayer(p);
         String soundKey = isBedrock ? song.getBedrockSound() : song.getJavaSound();
 
+        // Phat truc tiep bang Bukkit API (khong gay spam log console, gui goi tin truc tiep toi player)
         try {
-            String cmd = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
-        } catch (Throwable ignored) {}
+            p.playSound(p.getLocation(), soundKey, SoundCategory.RECORDS, 1000000.0f, 1.0f);
+        } catch (Throwable t) {
+            // Fallback console dispatch neu Bukkit API khong nhan sound key tuy chinh
+            try {
+                String cmd = String.format("execute at %s run playsound %s record %s ~ ~ ~ 1000000 1", p.getName(), soundKey, p.getName());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            } catch (Throwable ignored) {}
+        }
     }
 
     public void stopPlayerSound(Player p) {
@@ -206,25 +212,12 @@ public class MusicManager {
                 p.stopSound(SoundCategory.RECORDS);
                 p.stopSound(SoundCategory.MUSIC);
             } catch (Throwable ignored) {}
-            try {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName() + " record");
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName() + " music");
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound " + p.getName());
-            } catch (Throwable ignored) {}
         }
     }
 
     public void stopAllSounds() {
-        try {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a record");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a music");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stopsound @a");
-        } catch (Throwable ignored) {}
         for (Player p : Bukkit.getOnlinePlayers()) {
-            try {
-                p.stopSound(SoundCategory.RECORDS);
-                p.stopSound(SoundCategory.MUSIC);
-            } catch (Throwable ignored) {}
+            stopPlayerSound(p);
         }
     }
 

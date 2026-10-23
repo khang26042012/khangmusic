@@ -64,8 +64,15 @@ public class KhangMusicServer {
                 exchange.getResponseHeaders().set("Content-Type", "application/zip");
                 exchange.getResponseHeaders().set("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
                 exchange.getResponseHeaders().set("Accept-Ranges", "bytes");
-                exchange.sendResponseHeaders(200, fileLength);
 
+                if ("HEAD".equalsIgnoreCase(exchange.getRequestMethod())) {
+                    exchange.getResponseHeaders().set("Content-Length", String.valueOf(fileLength));
+                    exchange.sendResponseHeaders(200, -1);
+                    exchange.getResponseBody().close();
+                    return;
+                }
+
+                exchange.sendResponseHeaders(200, fileLength);
                 try (FileInputStream fis = new FileInputStream(file);
                      OutputStream os = exchange.getResponseBody()) {
                     byte[] buffer = new byte[65536];
